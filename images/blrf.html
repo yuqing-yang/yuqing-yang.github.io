@@ -1,0 +1,150 @@
+<!DOCTYPE HTML>
+<!--
+	TXT by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>BLRF - Iris Yuqing Yang</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+		<link rel="manifest" href="/site.webmanifest">
+	</head>
+	<body class="is-preload">
+		<div id="page-wrapper">
+
+			<!-- Header -->
+				<header id="header">
+					<div class="logo container">
+						<div>
+							<h1><a href="index.html" id="logo">Iris Yuqing Yang</a></h1>
+							<!--<p>A responsive site template by HTML5 UP</p>-->
+						</div>
+					</div>
+				</header>
+
+			<!-- Nav -->
+				<nav id="nav">
+					<ul>
+						<li class="current"><a href="index.html">Home</a></li>
+						<li>
+							<a href="#">Projects</a>
+							<ul>
+								<li><a href="blrf.html">BLRF - An R Package</a></li>
+								<li><a href="index.html#207">Statistical Methods for Research</a></li>
+								<li><a href="index.html#ml">Machine learning</a></li>
+								<!--<li><a href="#">Veroeros feugiat</a></li>-->
+							</ul>
+						</li>
+						<li><a href="covid-19.html">COVID-19</a></li>
+					</ul>
+				</nav>
+
+				
+			<!-- Main -->
+				<section id="main">
+					<div class="container">
+						<div class="row">
+							<div class="col-12">
+								<div class="content">
+
+									<!-- Content -->
+
+										<article class="box page-content">
+
+											<header>
+												<h2>BLRF</h2>
+												<p>An R package that applies the bag of little bootstraps to random forests.</p>
+												<ul class="meta">
+													<li class="icon fa-clock">2020-3-20</li>
+													<li>Team Members: Yujia Lu, Yating Ge, Yuqing Yang</li>
+												</ul>
+											</header>
+
+											<section>
+												<p>
+													We write an R package called <a href="https://github.com/STA141C/Final_project">BLRF</a>. This library combines bag of little bootstraps, also known as BLB, to replace the process of ordinary bootstrapping in the standard Random Forest algorithm in order to gain more robustness in prediction for random forest classification as well as regression. Users could call the function `blrf` to train a BLRF model, and get the prediction results for classification or regression, as well as the confidence interval of estimators. You could click <a href="blrf-vignette.html">here</a> to see the details about how to use this R package. 
+												</p>
+											</section>
+
+											<section>
+												<h3>Bag of little bootstraps (BLB)</h3>
+												<a href="https://ucdavis-sta-141c-winter-2020.github.io/sta141c-lectures/02-18/blb.html" class="image featured"><img src="images/blb.PNG" alt="" /></a>
+												<p>
+													BLB is a procedure that incorporates features of both the bootstrap and subsampling to yield a robust, computationally efficient means of assessing the quality of estimators. BLB functions by combining the results of multiple subsets, and the procedure is shown in the plot above. 
+												</p>
+												<ul>
+													<li>First, sample without replacement to split the training dataset into s subsample, with each subsample having a size of b. To determine b, one needs to pick a value of γ ([0,1]) and compute the value of b = n^ γ.</li>
+													<li>For each subsample, bootstrap it from size b to size n, the size of the original training dataset, and compute the statistics accordingly. Parallel computation could be used in this step to improve the speed.</li>
+													<li>Combine the results of statistics from each bootstrap subsample. One could assess the quality of estimators by using, for example, the confidence interval.</li>
+												</ul>
+											</section>
+
+											<section>
+												<h3>Bag of little random forests (BLRF)</h3>
+												<p>
+													BLRF is a machine learning algorithm that developed based on the algorithm of random forests. Instead of using bootstrap aggregation, the “BLB aggregation” is used to build multiple forests each built from many BLB decision trees. The pseudo-code for BLRF is shown in the plot below.
+												</p>
+												<span class="image featured"><img src="images/blrf.PNG" alt="" /></span>
+												<a href="https://www.causeweb.org/usproc/sites/default/files/usresp/2017-2/Bag_of_Little_Random_Forests.pdf">Reference: Bag of Little Random Forests (BLRF)</a> 
+											</section>
+
+										</article>
+
+								</div>
+							</div>
+							
+						</div>
+					</div>
+				</section>
+
+			<!-- Footer -->
+				<footer id="footer">
+					<div class="container">
+						<div class="row gtr-200">
+							<div class="col-12">
+
+							</div>
+							<div class="col-12">
+
+								<!-- Contact -->
+									<section>
+										<h2 class="major"><span>Get in touch</span></h2>
+										<ul class="contact">
+											<li><a href="mailto:yqyang101@hotmail.com?subject=Hello Iris!" class="icon fa-envelope"><span class="label">Email</span></a></li>
+											<li><a href="https://github.com/yuqing-yang" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+											<li><a class="icon brands fa-linkedin-in" href="https://www.linkedin.com/in/iris-yuqing-yang/"><span class="label">LinkedIn</span></a></li>
+										</ul>
+									</section>
+
+							</div>
+						</div>
+
+						<!-- Copyright -->
+							<div id="copyright">
+								<ul class="menu">
+									<li>&copy; Iris Yuqing Yang. All rights reserved</li>
+								</ul>
+							</div>
+
+					</div>
+				</footer>
+
+		</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.dropotron.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
