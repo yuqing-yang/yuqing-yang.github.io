@@ -1792,7 +1792,7 @@ input, select, textarea {
 		font-weight: 700;
 		text-transform: uppercase;
 		text-decoration: none;
-		background: #b1ddab;
+		background: #6B7770;
 		color: #fff;
 		border: 0;
 		line-height: 1em;
@@ -2488,7 +2488,7 @@ input, select, textarea {
 
 		#banner .content {
 			position: relative;
-			background-color: rgba(21, 28, 23, 0.85);
+			background-color: rgba(177, 221, 171, 0.24);
 			background-image: url("images/overlay.png"), url("images/highlight.png");
 			background-position: top left, center center;
 			background-size: auto, 100% 250%;
@@ -2519,10 +2519,10 @@ input, select, textarea {
 				-webkit-transition: border-color .2s ease-in-out, color .2s ease-in-out;
 				-ms-transition: border-color .2s ease-in-out, color .2s ease-in-out;
 				transition: border-color .2s ease-in-out, color .2s ease-in-out;
-				color: #b4b7b5;
+				color: #eff5ee;
 				background: transparent !important;
 				border: solid 4px #575d59;
-				border-color: rgba(87, 93, 89, 0.35);
+				border-color: rgba(8, 29, 15, 0.74);
 				font-size: 1.5em;
 			}
 
