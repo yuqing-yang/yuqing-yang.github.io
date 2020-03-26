@@ -1,0 +1,371 @@
+<!DOCTYPE HTML>
+<!--
+	TXT by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>COVID-19 - Iris Yuqing Yang</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<script type="text/javascript" src="d3.js"></script>
+		<script src="plotly-latest.min.js"></script>
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+		<link rel="manifest" href="/site.webmanifest">
+	</head>
+	<body class="is-preload">
+		<div id="page-wrapper">
+
+			<!-- Header -->
+				<header id="header">
+					<div class="logo container">
+						<div>
+							<h1><a href="index.html" id="logo">Iris Yuqing Yang</a></h1>
+							<!--<p>A responsive site template by HTML5 UP</p>-->
+						</div>
+					</div>
+				</header>
+
+			<!-- Nav -->
+				<nav id="nav">
+					<ul>
+						<li class="current"><a href="index.html">Home</a></li>
+						<li>
+							<a href="#">Projects</a>
+							<ul>
+								<li><a href="blrf.html">BLRF - An R Package</a></li>
+								<li><a href="index.html#207">Statistical Methods for Research</a></li>
+								<li><a href="index.html#ml">Machine learning</a></li>
+								<!--<li><a href="#">Veroeros feugiat</a></li>-->
+							</ul>
+						</li>
+						<li>
+							<a href="#">COVID-19</a>
+							<ul>
+								<li><a href="covid-19.html">2020-03-24</a></li>
+								<li><a href="covid-19-rt.html">Real-time</a></li>
+							</ul>
+						</li>
+					</ul>
+				</nav>
+
+
+			<!-- Main -->
+				<section id="main">
+					<div class="container">
+						<div class="row">
+							<div class="col-12">
+								<div class="content">
+
+									<!-- Content -->
+
+										<article class="box page-content">
+
+											<header>
+												<h2>Real-time visualization of the spread of COVID-19</h2>
+												<p>Real-time visualization of the cumulative confirmed cases and cumulative deaths across different countries/regions</p>
+												<ul class="meta">
+													<!--<li class="icon fa-clock">2020-3-24</li>-->
+													<!--<li class="icon fa-comments"><a href="#">1,024</a></li>-->
+												</ul>
+											</header>
+
+											<section>
+												<p>
+													The plots below were produced according to the <a href="https://github.com/CSSEGISandData/COVID-19">2019 Novel Coronavirus COVID-19 (2019-nCoV) Data Repository by Johns Hopkins CSSE.</a> All timestamps in the data set are in UTC (GMT+0). The data set updates once a day around 23:59 (UTC). 
+												<p>
+											</section>
+											
+											<section>
+												<h3>Cumulative Numbers of Confirmed Cases Across Different Countries/Regions</h3>
+												<p>
+													The cumulative numbers of confirmed cases across different countries/regions are shown in the plot below.For more details of the plot, you could double-click on the legend to select a specific country/region, and click on the legend to add or delete a country/region. You could also click and drag on the plot to zoom-in and double-click to zoom-out completely.
+												</p>
+												<p>
+													<div>
+	<script type="text/javascript">window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+		<div id = "confirm" class="plotly-graph-div" style="height:100%; width:100%;"></div>
+	</div>												
+<script type="text/javascript">
+        window.PLOTLYENV=window.PLOTLYENV || {};
+		if (document.getElementById("confirm")) {
+        
+        function makeplot() {
+    Plotly.d3.csv("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv", 
+        function(data){ processData(data) } );
+
+};
+    
+function processData(allRows) {
+
+    console.log(allRows);
+	
+	var coln = Object.keys(allRows[1]).slice(4,);
+	allRows.forEach(function(d){ 
+	for (var i = 0; i<coln.length; i++){
+		d[coln[i]] = +d[coln[i]]
+	}
+	});
+	
+	var dt = Object.keys(allRows[1]).slice(4,)
+
+	let map = allRows.reduce((prev, next) =>{
+		if (next['Country/Region'] in prev) {
+		
+			for (var i = 4; i< Object.keys(next).length; i++){
+				var k = Object.keys(next)[i];
+				prev[next['Country/Region']][k] += next[k]
+			}
+			
+		} else {
+			prev[next['Country/Region']] = next;
+		}
+		return prev;
+	}, {});
+
+	console.log(map)
+	var label = Object.keys(map)
+
+	var result = []
+	for(var i = 0; i<label.length; i++){
+		var t = {
+			x: dt,
+			y: Object.values(map[label[i]]).slice(4,),
+			type: 'scatter',
+			mode: 'lines',
+			name: label[i]
+		}
+		result.push(t)
+		}
+	
+	console.log( result );
+	makePlotly(result);
+	}
+
+function makePlotly(result){
+    //var plotDiv = document.getElementById("plot");
+    var layout = {
+		title: 'Cumulative Numbers of Confirmed Cases',
+		
+		};
+
+    Plotly.newPlot("confirm", result, layout);
+};
+  makeplot();}
+</script type="text/javascript">
+
+												</p>
+												
+											</section>
+
+											<section>
+												<h3>Cumulative Numbers of Deaths Across Different Countries/Regions</h3>
+												<p>
+													The cumulative numbers of deaths across different countries/regions are shown in the plot below. For more details of the plot, you could double-click on the legend to select a specific country/region, and click on the legend to add or delete a country/region. You could also click and drag on the plot to zoom-in and double-click to zoom-out completely.
+												</p>
+												<p>
+													<div>
+	<script type="text/javascript">window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+		<div id = "death" class="plotly-graph-div" style="height:100%; width:100%;"></div>
+	</div>
+<script type="text/javascript">
+        window.PLOTLYENV=window.PLOTLYENV || {};
+		if (document.getElementById("confirm")) {
+        
+        function makeplot() {
+    Plotly.d3.csv("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv", 
+        function(data){ processData(data) } );
+
+};
+    
+function processData(allRows) {
+
+    console.log(allRows);
+	
+	var coln = Object.keys(allRows[1]).slice(4,);
+	allRows.forEach(function(d){ 
+	for (var i = 0; i<coln.length; i++){
+		d[coln[i]] = +d[coln[i]]
+	}
+	});
+	
+	var dt = Object.keys(allRows[1]).slice(4,)
+
+	let map = allRows.reduce((prev, next) =>{
+		if (next['Country/Region'] in prev) {
+		
+			for (var i = 4; i< Object.keys(next).length; i++){
+				var k = Object.keys(next)[i];
+				prev[next['Country/Region']][k] += next[k]
+			}
+			
+		} else {
+			prev[next['Country/Region']] = next;
+		}
+		return prev;
+	}, {});
+
+	console.log(map)
+	var label = Object.keys(map)
+
+	var result = []
+	for(var i = 0; i<label.length; i++){
+		var t = {
+			x: dt,
+			y: Object.values(map[label[i]]).slice(4,),
+			type: 'scatter',
+			mode: 'lines',
+			name: label[i]
+		}
+		result.push(t)
+		}
+	
+	console.log( result );
+	makePlotly(result);
+	}
+
+function makePlotly(result){
+    //var plotDiv = document.getElementById("plot");
+    var layout = {
+		title: 'Cumulative Numbers of Deaths',
+		//xaxis: {
+		//	title: 'x-axis title'
+		//},
+		//yaxis: {
+		//	title: 'y-axis title'
+		//}
+		};
+
+    Plotly.newPlot("death", result, layout);
+};
+  makeplot();}
+</script type="text/javascript">
+												</p>
+											</section>
+
+										</article>
+
+								</div>
+							</div>
+							<div class="col-12">
+
+								<!-- Features -->
+									<section class="box features">
+										<h2 class="major"><span><a href="covid-19.html">The Spread of COVID-19</a></span></h2>
+										<div>
+											<div class="row">
+												<div class="col-3 col-6-medium col-12-small">
+
+													<!-- Feature -->
+														<section class="box feature">
+															<a href="https://github.com/STA141B/final-project" class="image featured"><img src="images/dash.PNG" alt="" /></a>
+															<h3><a href="https://github.com/STA141B/final-project">Shiny Apps</a></h3>
+															<p>
+																The aim of this App is to provide worldwide real-time information about new coronavirus outbreak.
+															</p>
+														</section>
+
+												</div>
+												<div class="col-3 col-6-medium col-12-small">
+
+													<!-- Feature -->
+														<section class="box feature">
+															<a href="confirm.html" class="image featured"><img src="images/confirm.PNG" alt="" /></a>
+															<h3><a href="covid-19.html">Confirmed Cases</a></h3>
+															<p>
+																The plot of cumulative numbers of confirmed cases across different countries/regions since January 22.
+															</p>
+														</section>
+
+												</div>
+												<div class="col-3 col-6-medium col-12-small">
+
+													<!-- Feature -->
+														<section class="box feature">
+															<a href="map_c.html" class="image featured"><img src="images/map.PNG" alt="" /></a>
+															<h3><a href="covid-19.html">Spread Map</a></h3>
+															<p>
+																The bubble map with animation for cumulative numbers of confirmed cases across different countries/regions.
+															</p>
+														</section>
+
+												</div>
+												<div class="col-3 col-6-medium col-12-small">
+
+													<!-- Feature -->
+														<section class="box feature">
+															<a href="https://systems.jhu.edu/research/public-health/ncov/" class="image featured"><img src="images/jh.PNG" alt="" /></a>
+															<h3><a href="https://github.com/CSSEGISandData/COVID-19">Data Source</a></h3>
+															<p>
+																This is the data repository for the 2019 Novel Coronavirus Visual Dashboard operated by the Johns Hopkins University Center for Systems Science and Engineering.
+															</p>
+														</section>
+
+												</div>
+												<div class="col-12">
+													<ul class="actions">
+														<!--<li><a href="#" class="button large">Do Something</a></li>-->
+														<li><a href="https://github.com/2019ncovmemory/nCovMemory" class="button alt large">You may also be interested in</a></li>
+													</ul>
+												</div>
+											</div>
+										</div>
+									</section>
+
+							</div>
+							<div class="col-12">
+
+							</div>
+						</div>
+					</div>
+				</section>
+
+			<!-- Footer -->
+				<footer id="footer">
+					<div class="container">
+						<div class="row gtr-200">
+							<div class="col-12">
+
+							</div>
+							<div class="col-12">
+
+								<!-- Contact -->
+									<section>
+										<h2 class="major"><span>Get in touch</span></h2>
+										<ul class="contact">
+											<li><a href="mailto:yqyang101@hotmail.com?subject=Hello Iris!" class="icon fa-envelope"><span class="label">Email</span></a></li>
+											<li><a href="https://github.com/yuqing-yang" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+											<li><a class="icon brands fa-linkedin-in" href="https://www.linkedin.com/in/iris-yuqing-yang/"><span class="label">LinkedIn</span></a></li>
+										</ul>
+									</section>
+
+							</div>
+						</div>
+
+						<!-- Copyright -->
+							<div id="copyright">
+								<ul class="menu">
+									<li>&copy; Iris Yuqing Yang. All rights reserved</li>
+								</ul>
+							</div>
+
+					</div>
+				</footer>
+
+		</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.dropotron.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
