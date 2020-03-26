@@ -83,7 +83,7 @@
 											<section>
 												<h3>Cumulative Numbers of Confirmed Cases Across Different Countries/Regions</h3>
 												<p>
-													The cumulative numbers of confirmed cases across different countries/regions are shown in the plot below.For more details of the plot, you could double-click on the legend to select a specific country/region, and click on the legend to add or delete a country/region. You could also click and drag on the plot to zoom-in and double-click to zoom-out completely.
+													The cumulative numbers of confirmed cases across different countries/regions are shown in the plot below. For more details of the plot, you could double-click on the legend to select a specific country/region, and click on the legend to add or delete a country/region. You could also click and drag on the plot to zoom-in and double-click to zoom-out completely.
 												</p>
 												<p>
 													<div>
@@ -158,6 +158,65 @@ function makePlotly(result){
   makeplot();}
 </script type="text/javascript">
 
+												</p>
+												<p>
+													<div>
+	<script type="text/javascript">window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+		<div id = "wmap" class="plotly-graph-div" style="height:100%; width:100%;"></div>
+	</div>											
+<script type="text/javascript">
+        window.PLOTLYENV=window.PLOTLYENV || {};
+		if (document.getElementById("wmap")) {
+		
+      function makeplot() {
+    Plotly.d3.csv("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv", 
+        function(err, data){ 
+		
+		function unpack(data, key) {
+        return data.map(function(row) { return row[key]; });
+    }
+		var coln = Object.keys(data[0])
+		var lst_d = coln[coln.length-1]
+		var prv = unpack(data, 'Province/State'),
+			cty = unpack(data, 'Country/Region'),
+			lat_ = unpack(data, 'Lat').map(Number),
+			lon_ = unpack(data, 'Long').map(Number),
+			num = unpack(data, lst_d).map(Number),
+			time_ = Array(data.length).fill(lst_d);
+		
+		var	size_ = num.map(x => x / 650);
+		
+		console.log(time_)
+		
+		var result = [
+			{
+				type: "scattermapbox",
+				//type: 'scattergeo',
+				text: cty,
+				lat: lat_,
+				lon: lon_,
+				marker: {size: size_, color: num, colorscale: 'Portland'},
+				//hovertext: cty,
+				customdata: time_,
+				hovertemplate: "<b>%{text}</b><br>" + 
+				"Confirmed Cases: %{marker.color}<br>" +
+				"Date: %{customdata}<br>"+
+				"<extra></extra>"
+				}
+			];
+		var layout = {
+			dragmode: "zoom",
+			mapbox: {style: "carto-positron", center: {lat:47,lon:43}, zoom: 1},
+			margin: { r: 0, t: 0, b: 0, l: 0 }
+		};
+		
+		Plotly.newPlot("wmap", result, layout)
+		
+	} );
+	};
+    
+		makeplot();}
+</script type="text/javascript">
 												</p>
 												
 											</section>
