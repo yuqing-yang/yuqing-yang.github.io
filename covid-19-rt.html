@@ -192,16 +192,17 @@ function makePlotly(result){
 			{
 				type: "scattermapbox",
 				//type: 'scattergeo',
-				text: cty,
+				text: prv,
+				hovertext: cty,
+				//cty.map((d, i) => `${d} ${prv[i]}`),
 				lat: lat_,
 				lon: lon_,
 				marker: {size: size_, color: num, colorscale: 'Portland'},
-				//hovertext: cty,
 				customdata: time_,
-				hovertemplate: "<b>%{text}</b><br>" + 
-				"Confirmed Cases: %{marker.color}<br>" +
+				hovertemplate: "<b>%{hovertext}</b><br>" + 
+ 				"Confirmed Cases: %{marker.color}<br>" +
 				"Date: %{customdata}<br>"+
-				"<extra></extra>"
+				"<extra>%{text}</extra>"
 				}
 			];
 		var layout = {
