@@ -184,7 +184,7 @@ function makePlotly(result){
 			num = unpack(data, lst_d).map(Number),
 			time_ = Array(data.length).fill(lst_d);
 		
-		var	size_ = num.map(x => x / 2000);
+		var	size_ = num.map(x => x / 10000);
 		
 		console.log(time_)
 		
@@ -198,6 +198,7 @@ function makePlotly(result){
 				lat: lat_,
 				lon: lon_,
 				marker: {size: size_, color: num, colorscale: 'Portland'},
+				
 				customdata: time_,
 				hovertemplate: "<b>%{hovertext}</b><br>" + 
  				"Confirmed Cases: %{marker.color}<br>" +
